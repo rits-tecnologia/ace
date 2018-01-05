@@ -2,8 +2,8 @@
 
 namespace Rits\Ace\Providers;
 
-use Creitive\Breadcrumbs\BreadcrumbsServiceProvider;
 use Illuminate\Support\ServiceProvider;
+use Rits\Ace\Support\Breadcrumbs\Breadcrumbs;
 
 class AceServiceProvider extends ServiceProvider
 {
@@ -13,6 +13,28 @@ class AceServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
+    {
+        $this->bootPackage();
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @return void
+     */
+    public function register()
+    {
+        $this->app->singleton('breadcrumbs', function () {
+            return (new Breadcrumbs)->setAttribute('class', 'breadcrumb');
+        });
+    }
+
+    /**
+     * Boot package vendor files.
+     *
+     * @return void
+     */
+    protected function bootPackage()
     {
         $this->loadViewsFrom(__DIR__ . '/../../resources/views', 'ace');
         $this->loadTranslationsFrom(__DIR__ . '/../../resources/lang', 'ace');
@@ -28,15 +50,5 @@ class AceServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../stub/config/ace.php' => config_path('ace.php'),
         ], 'ace-config');
-    }
-
-    /**
-     * Register any application services.
-     *
-     * @return void
-     */
-    public function register()
-    {
-        $this->app->register(BreadcrumbsServiceProvider::class);
     }
 }

@@ -27,7 +27,7 @@ trait HasModel
      *
      * @return Model
      */
-    protected function getInstance()
+    public function getInstance()
     {
         if (is_null($this->resourceInstance)) {
             $this->resourceInstance = new $this->resourceType;

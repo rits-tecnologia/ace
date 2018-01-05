@@ -1,6 +1,6 @@
 <?php
 
-namespace Rits\Ace\Eloquent\Concerns;
+namespace Rits\Ace\Support\Eloquent\Concerns;
 
 use Illuminate\Database\Query\Builder;
 

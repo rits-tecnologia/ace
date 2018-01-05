@@ -2,9 +2,7 @@
 
 namespace Rits\Ace\Concerns;
 
-use Breadcrumbs;
-
-trait LeavesCrumbs
+trait HasBreadcrumbs
 {
     /**
      * Add a new crumb to the breadcrumbs.
@@ -15,9 +13,10 @@ trait LeavesCrumbs
      */
     protected function addBreadcrumb($action, $parameters = [])
     {
-        Breadcrumbs::addCrumb(
-            $this->trans($action),
-            $this->route($action, $parameters)
-        );
+        app('breadcrumbs')
+            ->addNewCrumb(
+                $this->trans($action),
+                $this->route($action, $parameters)
+            );
     }
 }

@@ -2,9 +2,10 @@
 
 namespace Rits\Ace\Repositories;
 
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Rits\Ace\Concerns\HasModel;
-use Rits\Ace\Eloquent\Model;
+use Rits\Ace\Support\Model;
 
 class BackendRepository
 {
@@ -37,5 +38,26 @@ class BackendRepository
             ->order($order)
             ->paginate()
             ->appends(['q' => $search]);
+    }
+
+    /**
+     * Columns to optimize index query.
+     *
+     * @return string|array
+     */
+    public function indexColumns()
+    {
+        return '*';
+    }
+
+    /**
+     * Filter to optimize index query.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function indexFilter($query)
+    {
+        return $query;
     }
 }

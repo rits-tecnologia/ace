@@ -28,7 +28,7 @@ trait HasRoutes
      */
     public function view($action)
     {
-        $defaultView = 'web.' . $this->getTable() . '%s';
+        $defaultView = $this->getTable() . '.%s';
 
         return view(sprintf($defaultView, $action));
     }

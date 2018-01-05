@@ -8,7 +8,7 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\View\View;
-use Rits\Ace\Concerns\LeavesCrumbs;
+use Rits\Ace\Concerns\HasBreadcrumbs;
 use Rits\Ace\Concerns\HasModel;
 use Rits\Ace\Concerns\HasRoutes;
 use Rits\Ace\Concerns\HasTranslations;
@@ -22,7 +22,7 @@ class BackendController extends Controller
         HasModel,
         HasRoutes,
         HasTranslations,
-        LeavesCrumbs;
+        HasBreadcrumbs;
 
     /**
      * Display a listing of the resource.
@@ -32,8 +32,8 @@ class BackendController extends Controller
      */
     public function index(Request $request)
     {
+        $this->addBreadcrumb('index');
         $this->authorize('list', $this->resourceType);
-        $this->addBreadcrumb('list');
 
         $search = $request->get('q');
         $order = $request->get('order');
