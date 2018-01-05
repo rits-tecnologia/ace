@@ -1,0 +1,21 @@
+.nav-header {
+  padding: 10px 25px;
+
+  .image-logo {
+    display: block;
+    margin: 0 auto;
+    max-height: 40px;
+    max-width: 100%;
+  }
+
+  .text-logo {
+    align-items: center;
+    color: white;
+    display: flex;
+    font-size: 1.75rem;
+    font-weight: bold;
+    height: 40px;
+    justify-content: center;
+    width: 100%;
+  }
+}

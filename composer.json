@@ -1,0 +1,28 @@
+{
+    "name": "rits/ace",
+    "description": "Fully-featured laravel package for Rits projects",
+    "type": "library",
+    "require": {
+        "php": "^7.1",
+        "laravel/framework": "5.5.*"
+    },
+    "license": "MIT License",
+    "authors": [
+        {
+            "name": "Lucas Ferreira",
+            "email": "me@ferrl.io"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rits\\Ace\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Rits\\Ace\\Providers\\AceServiceProvider"
+            ]
+        }
+    }
+}
