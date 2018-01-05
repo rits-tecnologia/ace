@@ -2,6 +2,7 @@
 
 namespace Rits\Ace\Providers;
 
+use Creitive\Breadcrumbs\BreadcrumbsServiceProvider;
 use Illuminate\Support\ServiceProvider;
 
 class AceServiceProvider extends ServiceProvider
@@ -36,6 +37,6 @@ class AceServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->register(BreadcrumbsServiceProvider::class);
     }
 }
