@@ -1,5 +1,46 @@
 <?php
 
+use Illuminate\Translation\Translator;
+
+if (! function_exists(__NAMESPACE__.'\\__t')) {
+    /**
+     * A different approach to the `trans` method.
+     *
+     * @param string $key
+     * @param string $fallback
+     * @param array $replace
+     * @return mixed
+     */
+    function __t($key, $fallback, $replace = [])
+    {
+        /** @var Translator $translator */
+        $translator = trans();
+
+        if ($translator->has($key, null)) {
+            return $translator->trans($key, $replace);
+        }
+
+        return $translator->trans($fallback, $replace);
+    }
+}
+
+if (! function_exists(__NAMESPACE__.'\\crudAction')) {
+    /**
+     * Get some crud action by type.
+     *
+     * @param string $type
+     * @param string $action
+     * @return string
+     */
+    function crudAction($type, $action)
+    {
+        return __t(
+            'ace::terms.actions.' . $type . '.' . $action,
+            'ace::terms.actions.resource.' . $action
+        );
+    }
+}
+
 if (! function_exists(__NAMESPACE__.'\\globals')) {
     /**
      * Alias to the registry function.
@@ -35,5 +76,28 @@ if (! function_exists(__NAMESPACE__.'\\registry')) {
             $key = 'registry';
         }
         return config($key, $default);
+    }
+}
+
+if (! function_exists(__NAMESPACE__.'\\title')) {
+    /**
+     * Builds page name.
+     *
+     * @param string $page
+     * @param bool $reverse
+     * @param string $divider
+     * @return string
+     */
+    function title($page, $reverse = true, $divider = '|')
+    {
+        $page = [$page];
+
+        if ($reverse) {
+            array_push($page, config('app.name'));
+        } else {
+            array_unshift($page, config('app.name'));
+        }
+
+        return implode(' ' . $divider . ' ', $page);
     }
 }

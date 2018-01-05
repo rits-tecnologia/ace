@@ -39,6 +39,7 @@ class BackendController extends Controller
         $order = $request->get('order');
 
         return $this->view('index')
+            ->with('type', $this->resourceType)
             ->with('resource', $this->getRepository()->getInstance())
             ->with('resources', $this->getRepository()->index($search, $order));
     }

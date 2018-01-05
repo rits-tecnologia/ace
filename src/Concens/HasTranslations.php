@@ -12,7 +12,7 @@ trait HasTranslations
     protected function getTranslations()
     {
         return [
-            'index' => 'Resources',
+            'index' => __t('ace::terms.actions.' . $this->resourceType . '.index', 'ace::terms.actions.resource.index'),
         ];
     }
 
