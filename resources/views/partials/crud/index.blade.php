@@ -3,6 +3,12 @@
 @section('pre-content')
     @component('ace::components.page-header')
         @slot('title', crudAction($type, 'label'))
+        @slot('aside')
+            <a href="#" class="btn btn-default">
+                {{ crudAction($type, 'create') }}
+            </a>
+        @endslot
+
         {!! app('breadcrumbs')->render() !!}
     @endcomponent
 @stop
@@ -13,43 +19,47 @@
             @component('ace::components.box')
                 @slot('title', crudAction($type, 'index'))
 
-                <table class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            @foreach (call_user_func([$type, 'adminColumns']) as $column)
-                                <th>
-                                    {{ __t('validation.attributes.' . $type . '.' . $column, 'validation.attributes.' . $column) }}
-                                </th>
-                            @endforeach
-                            <th style="width:1px"></th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($resources as $resource)
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
                             <tr>
                                 @foreach (call_user_func([$type, 'adminColumns']) as $column)
-                                    <td>{{ $resource->getColumn($column) }}</td>
+                                    <th>
+                                        {{ __t('validation.attributes.' . $type . '.' . $column, 'validation.attributes.' . $column) }}
+                                    </th>
                                 @endforeach
-                                <td class="text-right">
-                                    <div class="dropdown">
-                                        <button class="btn btn-xs btn-link" data-toggle="dropdown">
-                                            <i class="fa fa-ellipsis-v"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-right">
-                                            @can('update', $resource)
-                                                <li>
-                                                    <a href="{{ $resource->route('edit') }}">
-                                                        <i class="fa fa-trash"></i> Editar
-                                                    </a>
-                                                </li>
-                                            @endcan
-                                        </ul>
-                                    </div>
-                                </td>
+                                <th style="width:1px"></th>
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($resources as $resource)
+                                <tr>
+                                    @foreach (call_user_func([$type, 'adminColumns']) as $column)
+                                        <td>{{ $resource->getColumn($column) }}</td>
+                                    @endforeach
+                                    <td class="text-right">
+                                        <div class="dropdown">
+                                            <button class="btn btn-xs btn-link" data-toggle="dropdown">
+                                                <i class="fa fa-ellipsis-v"></i>
+                                            </button>
+                                            <ul class="dropdown-menu dropdown-menu-right">
+                                                @can('view', $resource)
+                                                    <li><a href="{{ $resource->route('show') }}"><i class="fa fa-eye"></i> Visualizar</a></li>
+                                                @endcan
+                                                @can('update', $resource)
+                                                    <li><a href="{{ $resource->route('edit') }}"><i class="fa fa-pencil"></i> Editar</a></li>
+                                                @endcan
+                                                @can('delete', $resource)
+                                                    <li><a href="{{ $resource->route('destroy') }}" data-method="DELETE"><i class="fa fa-times"></i> Excluir</a></li>
+                                                @endcan
+                                            </ul>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
 
                 {!! $resources->links() !!}
             @endcomponent

@@ -3,9 +3,9 @@
 namespace Rits\Ace\Support\Eloquent;
 
 use Illuminate\Database\Eloquent\Model as Eloquent;
-use Rits\Ace\Concerns\HasRoutes;
 use Rits\Ace\Concerns\HasTranslations;
 use Rits\Ace\Support\Eloquent\Concerns\Filterable;
+use Rits\Ace\Support\Eloquent\Concerns\HasRoutes;
 use Rits\Ace\Support\Eloquent\Concerns\Orderable;
 use Rits\Ace\Support\Eloquent\Concerns\Searchable;
 use Rits\Ace\Support\Eloquent\Contracts\TableContract;

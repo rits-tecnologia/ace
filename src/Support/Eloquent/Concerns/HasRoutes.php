@@ -1,6 +1,6 @@
 <?php
 
-namespace Rits\Ace\Concerns;
+namespace Rits\Ace\Support\Eloquent\Concerns;
 
 use Illuminate\Routing\RouteCollection;
 
