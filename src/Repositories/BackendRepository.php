@@ -5,7 +5,7 @@ namespace Rits\Ace\Repositories;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Rits\Ace\Concerns\HasModel;
-use Rits\Ace\Support\Model;
+use Rits\Ace\Support\Eloquent\Model;
 
 class BackendRepository
 {
@@ -37,7 +37,7 @@ class BackendRepository
             ->search($search)
             ->order($order)
             ->paginate()
-            ->appends(['q' => $search]);
+            ->appends(['q' => $search, 'order' => $order]);
     }
 
     /**

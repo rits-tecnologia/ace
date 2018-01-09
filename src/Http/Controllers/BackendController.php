@@ -20,8 +20,6 @@ class BackendController extends Controller
         ValidatesRequests,
         # Ace helpers
         HasModel,
-        HasRoutes,
-        HasTranslations,
         HasBreadcrumbs;
 
     /**
@@ -32,7 +30,10 @@ class BackendController extends Controller
      */
     public function index(Request $request)
     {
-        $this->addBreadcrumb('index');
+        $resource = $this->getRepository()->getInstance();
+        dd($resource->trans('index'));
+
+        $this->addBreadcrumb($resource, 'index');
         $this->authorize('list', $this->resourceType);
 
         $search = $request->get('q');

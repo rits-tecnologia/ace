@@ -7,6 +7,28 @@ use Illuminate\View\View;
 trait HasRoutes
 {
     /**
+     * Default format for the resource routes. The
+     * following replacements are made:
+     *
+     *  1. {action}: the current controller action;
+     *  2. {table}: the resource table name
+     *
+     * @var string
+     */
+    protected $routeFormat = 'web.{table}.{action}';
+
+    /**
+     * Default format for the views path. The following
+     * replacements are made:
+     *
+     *  1. {action}: the current controller action;
+     *  2. {table}: the resource table name
+     *
+     * @var string
+     */
+    protected $viewFormat = '{table}.{action}';
+
+    /**
      * Get route by action.
      *
      * @param string $action
@@ -15,9 +37,13 @@ trait HasRoutes
      */
     public function route($action, $parameters = [])
     {
-        $defaultRoute = 'web.' . $this->getTable() . '.%s';
+        $name = str_replace(
+            ['{action}', '{table}'],
+            [$action, $this->getTable()],
+            $this->routeFormat
+        );
 
-        return route(sprintf($defaultRoute, $action), $parameters);
+        return route($name, $parameters);
     }
 
     /**
@@ -28,8 +54,12 @@ trait HasRoutes
      */
     public function view($action)
     {
-        $defaultView = $this->getTable() . '.%s';
+        $name = str_replace(
+            ['{action}', '{table}'],
+            [$action, $this->getTable()],
+            $this->viewFormat
+        );
 
-        return view(sprintf($defaultView, $action));
+        return view($name);
     }
 }

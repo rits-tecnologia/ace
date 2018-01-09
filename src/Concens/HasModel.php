@@ -3,8 +3,8 @@
 namespace Rits\Ace\Concerns;
 
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Rits\Ace\Repositories\BackendRepository;
+use Rits\Ace\Support\Eloquent\Model;
 
 trait HasModel
 {
