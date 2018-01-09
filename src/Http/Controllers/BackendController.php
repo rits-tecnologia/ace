@@ -12,6 +12,7 @@ use Rits\Ace\Concerns\HasBreadcrumbs;
 use Rits\Ace\Concerns\HasModel;
 use Rits\Ace\Concerns\HasRoutes;
 use Rits\Ace\Concerns\HasTranslations;
+use Rits\Ace\Concerns\HasViews;
 
 class BackendController extends Controller
 {
@@ -19,8 +20,9 @@ class BackendController extends Controller
         DispatchesJobs,
         ValidatesRequests,
         # Ace helpers
+        HasBreadcrumbs,
         HasModel,
-        HasBreadcrumbs;
+        HasViews;
 
     /**
      * Display a listing of the resource.
@@ -31,7 +33,6 @@ class BackendController extends Controller
     public function index(Request $request)
     {
         $resource = $this->getRepository()->getInstance();
-        dd($resource->trans('index'));
 
         $this->addBreadcrumb($resource, 'index');
         $this->authorize('list', $this->resourceType);

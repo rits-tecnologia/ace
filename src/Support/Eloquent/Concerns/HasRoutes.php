@@ -2,7 +2,7 @@
 
 namespace Rits\Ace\Concerns;
 
-use Illuminate\View\View;
+use Illuminate\Routing\RouteCollection;
 
 trait HasRoutes
 {
@@ -16,17 +16,6 @@ trait HasRoutes
      * @var string
      */
     protected $routeFormat = 'web.{table}.{action}';
-
-    /**
-     * Default format for the views path. The following
-     * replacements are made:
-     *
-     *  1. {action}: the current controller action;
-     *  2. {table}: the resource table name
-     *
-     * @var string
-     */
-    protected $viewFormat = '{table}.{action}';
 
     /**
      * Get route by action.
@@ -43,23 +32,15 @@ trait HasRoutes
             $this->routeFormat
         );
 
+        /** @var RouteCollection $routes */
+        $routes = app('router')->getRoutes();
+
+        if ($route = $routes->getByName($name)) {
+            if (array_search($this->getRouteKeyName(), $route->parameterNames()) !== false) {
+                $parameters[$this->getRouteKeyName()] = $this->getRouteKey();
+            }
+        }
+
         return route($name, $parameters);
-    }
-
-    /**
-     * Get view by action.
-     *
-     * @param string $action
-     * @return View
-     */
-    public function view($action)
-    {
-        $name = str_replace(
-            ['{action}', '{table}'],
-            [$action, $this->getTable()],
-            $this->viewFormat
-        );
-
-        return view($name);
     }
 }

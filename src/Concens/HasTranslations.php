@@ -22,7 +22,7 @@ trait HasTranslations
      * @param string $key
      * @return string
      */
-    protected function trans($key)
+    public function trans($key)
     {
         return data_get($this->getTranslations(), $key);
     }

@@ -36,9 +36,9 @@
                                             <i class="fa fa-ellipsis-v"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right">
-                                            @can('edit', $resource)
+                                            @can('update', $resource)
                                                 <li>
-                                                    <a href="#">
+                                                    <a href="{{ $resource->route('edit') }}">
                                                         <i class="fa fa-trash"></i> Editar
                                                     </a>
                                                 </li>
