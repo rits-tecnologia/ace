@@ -22,6 +22,7 @@
                        class="form-control"
                        value="{{ old('email') }}"
                        placeholder="{{ trans('ace::pages.login.form.email') }}"
+                       autofocus
                        required>
             </div>
             <div class="form-group">

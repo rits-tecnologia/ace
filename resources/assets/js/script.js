@@ -15,7 +15,7 @@ $(document).ready(function () {
             tb = t.offset().top + t.height(),
             mb = m.offset().top + m.outerHeight(true),
             d = 20; // Space for shadow + scrollbar.
-        if (t[0].scrollWidth > t.innerWidth()) {
+        if (t[0].scrollWidth > Math.round(t.innerWidth())) {
             if (mb + d > tb) {
                 t.css('padding-bottom', ((mb + d) - tb));
             }
