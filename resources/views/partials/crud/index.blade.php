@@ -43,6 +43,9 @@
                                                 <i class="fa fa-ellipsis-v"></i>
                                             </button>
                                             <ul class="dropdown-menu dropdown-menu-right">
+                                                <li class="dropdown-header dropdown-header-empty">
+                                                    {{ trans('ace::terms.actions.no_actions') }}
+                                                </li>
                                                 @can('view', $resource)
                                                     <li><a href="{{ $resource->route('show') }}"><i class="fa fa-eye"></i> Visualizar</a></li>
                                                 @endcan

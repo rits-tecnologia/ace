@@ -1,0 +1,7 @@
+.dropdown-header-empty {
+  display: none;
+
+  &:only-child {
+    display: block;
+  }
+}
