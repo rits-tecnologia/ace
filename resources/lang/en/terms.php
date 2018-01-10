@@ -10,7 +10,8 @@ return [
         'resource' => [
             'label' => 'Resources',
             'index' => 'Listing resources',
-            'create' => 'Create resource',
+            'new' => 'Create resource',
+            'save' => 'Save changes',
         ],
     ],
 ];

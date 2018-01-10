@@ -13,6 +13,7 @@ trait HasTranslations
     {
         return [
             'index' => __t('ace::terms.actions.' . get_class($this) . '.index', 'ace::terms.actions.resource.index'),
+            'new' => __t('ace::terms.actions.' . get_class($this) . '.new', 'ace::terms.actions.resource.new'),
         ];
     }
 

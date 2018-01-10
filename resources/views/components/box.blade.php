@@ -5,4 +5,9 @@
     <div class="ibox-content">
         {{ $slot }}
     </div>
+    @if (isset($footer))
+        <div class="ibox-footer">
+            {{ $footer }}
+        </div>
+    @endif
 </div>

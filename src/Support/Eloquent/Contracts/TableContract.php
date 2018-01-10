@@ -9,5 +9,5 @@ interface TableContract
      *
      * @return array
      */
-    public static function adminColumns();
+    public function adminColumns();
 }

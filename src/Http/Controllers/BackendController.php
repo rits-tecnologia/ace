@@ -10,9 +10,8 @@ use Illuminate\Routing\Controller;
 use Illuminate\View\View;
 use Rits\Ace\Concerns\HasBreadcrumbs;
 use Rits\Ace\Concerns\HasModel;
-use Rits\Ace\Concerns\HasRoutes;
-use Rits\Ace\Concerns\HasTranslations;
 use Rits\Ace\Concerns\HasViews;
+use Rits\Ace\Support\Eloquent\Model;
 
 class BackendController extends Controller
 {
@@ -25,6 +24,23 @@ class BackendController extends Controller
         HasViews;
 
     /**
+     * Clean instance of the resource.
+     *
+     * @var Model
+     */
+    protected $instance;
+
+    /**
+     * BackendController constructor.
+     */
+    public function __construct()
+    {
+        $this->instance = $this->getRepository()->getInstance();
+
+        $this->addBreadcrumb($this->instance, 'index');
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @param Request $request
@@ -32,17 +48,31 @@ class BackendController extends Controller
      */
     public function index(Request $request)
     {
-        $resource = $this->getRepository()->getInstance();
-
-        $this->addBreadcrumb($resource, 'index');
         $this->authorize('list', $this->resourceType);
 
         $search = $request->get('q');
         $order = $request->get('order');
 
+        $resources = $this->getRepository()->index($search, $order);
+
         return $this->view('index')
             ->with('type', $this->resourceType)
-            ->with('resource', $this->getRepository()->getInstance())
-            ->with('resources', $this->getRepository()->index($search, $order));
+            ->with('instance', $this->instance)
+            ->with('resources', $resources);
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return View
+     */
+    public function new()
+    {
+        $this->addBreadcrumb($this->instance, 'new');
+        $this->authorize('create', $this->resourceType);
+
+        return $this->view('new')
+            ->with('type', $this->resourceType)
+            ->with('instance', $this->instance);
     }
 }

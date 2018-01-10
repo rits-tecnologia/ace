@@ -39,13 +39,15 @@ class Crumb
      *
      * @return string
      */
-    public function render()
+    public function render($bold = false)
     {
         $title = $this->title;
         $url = $this->url;
         $attributes = $this->attributes ? ' ' . $this->buildAttributes() : '';
 
-        $anchor = sprintf('<a href="%s">%s</a>', $url, $title);
+        $anchor = $bold
+            ? sprintf('<a href="%s"><strong>%s</strong></a>', $url, $title)
+            : sprintf('<a href="%s">%s</a>', $url, $title);
         $item = sprintf('<li%s>%s</li>', $attributes, $anchor);
 
         return $item;

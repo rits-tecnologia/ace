@@ -73,7 +73,7 @@ class Breadcrumbs
         $attributes = $this->attributes ? ' ' . $this->buildAttributes() : '';
 
         $items = $this->path->map(function (Crumb $crumb) {
-            return $crumb->render();
+            return $crumb->render($this->path->last() == $crumb);
         })->implode('');
 
         $list = sprintf('<ul%s>%s</ul>', $attributes, $items);

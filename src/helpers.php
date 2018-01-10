@@ -41,6 +41,23 @@ if (! function_exists(__NAMESPACE__.'\\crudAction')) {
     }
 }
 
+if (! function_exists(__NAMESPACE__.'\\crudColumn')) {
+    /**
+     * Get some crud column by type.
+     *
+     * @param string $type
+     * @param string $field
+     * @return string
+     */
+    function crudColumn($type, $field)
+    {
+        return __t(
+            'validation.attributes.' . $type . '.' . $field,
+            'validation.attributes.' . $field
+        );
+    }
+}
+
 if (! function_exists(__NAMESPACE__.'\\globals')) {
     /**
      * Alias to the registry function.

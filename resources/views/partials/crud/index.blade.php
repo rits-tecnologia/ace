@@ -4,8 +4,8 @@
     @component('ace::components.page-header')
         @slot('title', crudAction($type, 'label'))
         @slot('aside')
-            <a href="#" class="btn btn-default">
-                {{ crudAction($type, 'create') }}
+            <a href="{{ $instance->route('new') }}" class="btn btn-default">
+                {{ crudAction($type, 'new') }}
             </a>
         @endslot
 
@@ -23,9 +23,9 @@
                     <table class="table table-bordered table-hover">
                         <thead>
                             <tr>
-                                @foreach (call_user_func([$type, 'adminColumns']) as $column)
+                                @foreach ($instance->adminColumns() as $column)
                                     <th>
-                                        {{ __t('validation.attributes.' . $type . '.' . $column, 'validation.attributes.' . $column) }}
+                                        {{ crudColumn($type, $column) }}
                                     </th>
                                 @endforeach
                                 <th style="width:1px"></th>
@@ -34,7 +34,7 @@
                         <tbody>
                             @foreach ($resources as $resource)
                                 <tr>
-                                    @foreach (call_user_func([$type, 'adminColumns']) as $column)
+                                    @foreach ($resource->adminColumns() as $column)
                                         <td>{{ $resource->getColumn($column) }}</td>
                                     @endforeach
                                     <td class="text-right">
