@@ -2,6 +2,7 @@
 
 namespace Rits\Ace\Repositories;
 
+use DB;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 use Rits\Ace\Concerns\HasModel;
@@ -59,5 +60,46 @@ class BackendRepository
     public function indexFilter($query)
     {
         return $query;
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param array $attributes
+     * @return Model
+     */
+    public function create($attributes)
+    {
+        return DB::transaction(function () use ($attributes) {
+            $attributes = $this->createAttributes($attributes);
+
+            /** @var Model $resource */
+            $resource = $this->build($attributes, true);
+            $resource->save();
+
+            return $this->storeHook($resource);
+        });
+    }
+
+    /**
+     * Handles create action attributes.
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function createAttributes($attributes)
+    {
+        return $attributes;
+    }
+
+    /**
+     * Handles model after store.
+     *
+     * @param Model $resource
+     * @return Model
+     */
+    public function storeHook($resource)
+    {
+        return $resource;
     }
 }

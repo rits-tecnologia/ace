@@ -65,4 +65,36 @@ trait HasModel
     {
         return $this->getInstance()->newQuery();
     }
+
+    /**
+     * Fills data to the resource.
+     *
+     * @param Model $resource
+     * @param array $attributes
+     * @param bool $force
+     * @return Model
+     */
+    public function fill($resource, $attributes, $force = false)
+    {
+        $resource->fillable($force ? array_keys($attributes) : $resource->getFillable());
+        $resource->fill($attributes);
+
+        return $resource;
+    }
+
+    /**
+     * Build a new object without saving.
+     *
+     * @param array $attributes
+     * @param bool $force
+     * @return Model
+     */
+    public function build($attributes, $force = false)
+    {
+        return $this->fill(
+            $this->getInstance(),
+            $attributes,
+            $force
+        );
+    }
 }

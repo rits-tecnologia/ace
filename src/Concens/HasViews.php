@@ -21,9 +21,10 @@ trait HasViews
      * Get view by action.
      *
      * @param string $action
+     * @param array $data
      * @return View
      */
-    public function view($action)
+    public function view($action, $data = [])
     {
         $name = str_replace(
             ['{action}', '{table}'],
@@ -31,6 +32,6 @@ trait HasViews
             $this->viewFormat
         );
 
-        return view($name);
+        return view($name, $data);
     }
 }

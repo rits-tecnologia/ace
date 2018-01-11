@@ -55,6 +55,7 @@
                                                 @can('delete', $resource)
                                                     <li><a href="{{ $resource->route('destroy') }}" data-method="DELETE"><i class="fa fa-times"></i> Excluir</a></li>
                                                 @endcan
+                                                @yield('actions')
                                             </ul>
                                         </div>
                                     </td>

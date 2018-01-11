@@ -12,6 +12,14 @@ return [
             'index' => 'Listing resources',
             'new' => 'Create resource',
             'save' => 'Save changes',
+
+            'success' => [
+                'created' => 'New resource created.',
+            ],
+
+            'failed' => [
+                'created' => 'Failed to create resource.',
+            ],
         ],
     ],
 ];
