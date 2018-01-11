@@ -63,6 +63,49 @@ class BackendRepository
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return Model
+     */
+    public function find($id)
+    {
+        $query = $this->newQuery();
+
+        /** @var Builder $query */
+        /** @noinspection PhpUndefinedMethodInspection */
+        $query = method_exists($this->getInstance(), 'getDeletedAtColumn')
+            ? $query->withTrashed() : $query;
+
+        /** @noinspection PhpUndefinedMethodInspection */
+        return $query
+            ->select($this->findColumns())
+            ->filter([$this, 'findFilter'])
+            ->findOrFail($id);
+    }
+
+    /**
+     * Columns to optimize find query.
+     *
+     * @return string|array
+     */
+    public function findColumns()
+    {
+        return '*';
+    }
+
+    /**
+     * Filter to optimize find query.
+     *
+     * @param Builder $query
+     * @return Builder
+     */
+    public function findFilter($query)
+    {
+        return $query;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param array $attributes
@@ -99,6 +142,48 @@ class BackendRepository
      * @return Model
      */
     public function storeHook($resource)
+    {
+        return $resource;
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param Model $resource
+     * @param array $attributes
+     * @return Model
+     */
+    public function update($resource, $attributes)
+    {
+        return DB::transaction(function () use ($resource, $attributes) {
+            $attributes = $this->updateAttributes($attributes);
+
+            /** @var Model $resource */
+            $resource = $this->fill($resource, $attributes, true);
+            $resource->save();
+
+            return $this->updateHook($resource);
+        });
+    }
+
+    /**
+     * Handles update action attributes.
+     *
+     * @param array $attributes
+     * @return array
+     */
+    public function updateAttributes($attributes)
+    {
+        return $attributes;
+    }
+
+    /**
+     * Handles model after update.
+     *
+     * @param Model $resource
+     * @return Model
+     */
+    public function updateHook($resource)
     {
         return $resource;
     }

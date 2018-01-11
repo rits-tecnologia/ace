@@ -2,6 +2,7 @@
 
 namespace Rits\Ace\Http\Controllers;
 
+use Illuminate\Contracts\Auth\Access\Authorizable;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Foundation\Validation\ValidatesRequests;
@@ -92,8 +93,44 @@ class BackendController extends Controller
             return $this->afterCreate($resource);
         }
 
-        return back()->withInput()
-            ->with('warning', crudAction($this->resourceType, 'failed.created'));
+        return $this->afterFailed('created');
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @param int $id
+     * @return View
+     */
+    public function edit($id)
+    {
+        $instance = $this->getRepository()->find($id);
+
+        $this->addBreadcrumb($instance, 'edit');
+        $this->authorize('update', $instance);
+
+        return $this->view('edit')
+            ->with('type', $this->resourceType)
+            ->with('instance', $instance);
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function update($id)
+    {
+        $instance = $this->getRepository()->find($id);
+
+        $this->authorize('update', $instance);
+
+        if ($resource = $this->getRepository()->update($instance, $this->formParams())) {
+            return $this->afterUpdate($resource);
+        }
+
+        return $this->afterFailed('updated');
     }
 
     /**
@@ -104,17 +141,57 @@ class BackendController extends Controller
      */
     protected function afterCreate(Model $resource)
     {
+        /** @var Authorizable $user */
+        $user = auth()->user();
         $route = null;
 
-        if (auth()->user()->can('view', $resource)) {
+        if ($user->can('view', $resource)) {
             $route = $resource->route('show');
-        } elseif (auth()->user()->can('list', $this->resourceType)) {
+        } elseif ($user->can('list', $this->resourceType)) {
             $route = $resource->route('index');
         }
 
         $route = $route ? redirect()->to($route) : back();
 
-        return $route
-            ->with('success', crudAction($this->resourceType, 'success.created'));
+        return $route->with(
+            'success',
+            crudAction($this->resourceType, 'success.created')
+        );
+    }
+
+    /**
+     * Where to redirect after updating resource.
+     *
+     * @param Model $resource
+     * @return RedirectResponse
+     */
+    protected function afterUpdate($resource)
+    {
+        /** @var Authorizable $user */
+        $user = auth()->user();
+        $route = null;
+
+        if ($user->can('view', $resource)) {
+            $route = $resource->route('show');
+        }
+
+        $route = $route ? redirect()->to($route) : back();
+
+        return $route->with(
+            'success',
+            crudAction($this->resourceType, 'success.updated')
+        );
+    }
+
+    /**
+     * Return with errors and message.
+     *
+     * @param string $action
+     * @return RedirectResponse
+     */
+    private function afterFailed($action)
+    {
+        return back()->withInput()
+            ->with('warning', crudAction($this->resourceType, 'failed.' . $action));
     }
 }

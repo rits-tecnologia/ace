@@ -23,6 +23,13 @@ trait HasModel
     protected $resourceInstance;
 
     /**
+     * Type of the managing repository.
+     *
+     * @var string
+     */
+    protected $repositoryType = 'Rits\\Ace\\Repositories\\BackendRepository';
+
+    /**
      * Get resource instance.
      *
      * @return Model
@@ -53,7 +60,7 @@ trait HasModel
      */
     protected function getRepository()
     {
-        return new BackendRepository($this->resourceType);
+        return new $this->repositoryType($this->resourceType);
     }
 
     /**
