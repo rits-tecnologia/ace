@@ -53,7 +53,7 @@
                                                     <li><a href="{{ $resource->route('edit') }}"><i class="fa fa-pencil"></i> Editar</a></li>
                                                 @endcan
                                                 @can('delete', $resource)
-                                                    <li><a href="{{ $resource->route('destroy') }}" data-method="DELETE"><i class="fa fa-times"></i> Excluir</a></li>
+                                                    <li><a href="{{ $resource->route('delete') }}" data-method="DELETE" data-confirm="{{ crudAction($type, 'confirmation.delete') }}"><i class="fa fa-times"></i> Excluir</a></li>
                                                 @endcan
                                                 @yield('actions')
                                             </ul>

@@ -14,14 +14,20 @@ return [
             'edit' => 'Edit resource',
             'save' => 'Save changes',
 
+            'confirmation' => [
+                'delete' => 'Are you sure?',
+            ],
+
             'success' => [
-                'created' => 'New resource created.',
+                'created' => 'Resource created.',
                 'updated' => 'Resource updated.',
+                'deleted' => 'Resource deleted.',
             ],
 
             'failed' => [
                 'created' => 'Failed to create resource.',
                 'updated' => 'Failed to update resource.',
+                'deleted' => 'Failed to delete resource.',
             ],
         ],
     ],

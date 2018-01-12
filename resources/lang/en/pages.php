@@ -7,6 +7,7 @@ return [
         'form' => [
             'email' => 'E-mail',
             'password' => 'Password',
+            'remember' => 'Remember this computer?',
             'submit' => 'Enter',
         ],
         'forgot_password' => 'Forgot password?',

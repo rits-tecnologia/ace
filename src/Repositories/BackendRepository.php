@@ -187,4 +187,43 @@ class BackendRepository
     {
         return $resource;
     }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param Model $resource
+     * @return Model
+     */
+    public function delete($resource)
+    {
+        return DB::transaction(function () use ($resource) {
+            $resource = $this->deleteBefore($resource);
+
+            $resource->forceDelete();
+
+            return $this->deleteAfter($resource);
+        });
+    }
+
+    /**
+     * Handles model before delete.
+     *
+     * @param Model $resource
+     * @return Model
+     */
+    public function deleteBefore($resource)
+    {
+        return $resource;
+    }
+
+    /**
+     * Handles model after delete.
+     *
+     * @param Model $resource
+     * @return Model
+     */
+    public function deleteAfter($resource)
+    {
+        return $resource;
+    }
 }

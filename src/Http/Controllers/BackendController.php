@@ -134,6 +134,25 @@ class BackendController extends Controller
     }
 
     /**
+     * Remove the specified resource from storage.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function delete($id)
+    {
+        $instance = $this->getRepository()->find($id);
+
+        $this->authorize('delete', $instance);
+
+        if ($success = $this->getRepository()->delete($instance)) {
+            return $this->afterDelete($instance);
+        }
+
+        return $this->afterFailed('deleted');
+    }
+
+    /**
      * Where to redirect after creating the resource.
      *
      * @param Model $resource
@@ -184,12 +203,36 @@ class BackendController extends Controller
     }
 
     /**
+     * Where to redirect after deleting resource.
+     *
+     * @param Model $resource
+     * @return RedirectResponse
+     */
+    protected function afterDelete($resource)
+    {
+        /** @var Authorizable $user */
+        $user = auth()->user();
+        $route = null;
+
+        if ($user->can('list', $resource)) {
+            $route = $resource->route('index');
+        }
+
+        $route = $route ? redirect()->to($route) : back();
+
+        return $route->with(
+            'success',
+            crudAction($this->resourceType, 'success.deleted')
+        );
+    }
+
+    /**
      * Return with errors and message.
      *
      * @param string $action
      * @return RedirectResponse
      */
-    private function afterFailed($action)
+    protected function afterFailed($action)
     {
         return back()->withInput()
             ->with('warning', crudAction($this->resourceType, 'failed.' . $action));
