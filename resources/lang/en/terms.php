@@ -10,6 +10,7 @@ return [
         'resource' => [
             'label' => 'Resources',
             'index' => 'Listing resources',
+            'show' => 'View resource',
             'new' => 'Create resource',
             'edit' => 'Edit resource',
             'save' => 'Save changes',

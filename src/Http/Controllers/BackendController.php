@@ -66,6 +66,24 @@ class BackendController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     * @return View
+     */
+    public function show($id)
+    {
+        $instance = $this->getRepository()->find($id);
+
+        $this->addBreadcrumb($instance, 'show');
+        $this->authorize('view', $instance);
+
+        return $this->view('show')
+            ->with('type', $this->resourceType)
+            ->with('instance', $instance);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return View
