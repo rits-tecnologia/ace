@@ -173,6 +173,18 @@ class BackendController extends Controller
     }
 
     /**
+     * Validate form request for javascript.
+     *
+     * @return Request
+     */
+    public function validation()
+    {
+        return $this->formRequest()
+            ? response()->json(['status' => 'valid'])
+            : response()->json(['status' => 'invalid'], 422);
+    }
+
+    /**
      * Where to redirect after creating the resource.
      *
      * @param Model $resource
