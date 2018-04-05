@@ -3,6 +3,7 @@
 namespace Rits\Ace\Support\Eloquent\Concerns;
 
 use Illuminate\Routing\RouteCollection;
+use Route;
 
 trait HasRoutes
 {
@@ -26,11 +27,7 @@ trait HasRoutes
      */
     public function route($action, $parameters = [])
     {
-        $name = str_replace(
-            ['{action}', '{table}'],
-            [$action, $this->getTable()],
-            $this->routeFormat
-        );
+        $name = $this->routeName($action);
 
         /** @var RouteCollection $routes */
         $routes = app('router')->getRoutes();
@@ -42,5 +39,35 @@ trait HasRoutes
         }
 
         return route($name, $parameters);
+    }
+
+    /**
+     * Check for route existence.
+     *
+     * @param string $action
+     * @return bool
+     */
+    public function hasRoute($action)
+    {
+        $name = $this->routeName($action);
+
+        return Route::has($name);
+    }
+
+    /**
+     * Get route name by action.
+     *
+     * @param string $action
+     * @return mixed
+     */
+    protected function routeName($action)
+    {
+        $name = str_replace(
+            ['{action}', '{table}'],
+            [$action, $this->getTable()],
+            $this->routeFormat
+        );
+
+        return $name;
     }
 }

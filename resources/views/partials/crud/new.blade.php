@@ -11,7 +11,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-8">
-            {!! Form::model($instance, ['url' => $instance->route('create'), 'method' => 'post']) !!}
+            {!! Form::model($instance, ['url' => $instance->route('create'), 'method' => 'post', 'data-validate' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
                 @component('ace::components.box')
                     @slot('title', crudAction($type, 'new'))
                     @slot('footer')
