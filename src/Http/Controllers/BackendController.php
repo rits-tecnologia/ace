@@ -95,7 +95,8 @@ class BackendController extends Controller
 
         return $this->view('new')
             ->with('type', $this->resourceType)
-            ->with('instance', $this->instance);
+            ->with('instance', $this->instance)
+            ->with('isUpdate', false);
     }
 
     /**
@@ -129,7 +130,8 @@ class BackendController extends Controller
 
         return $this->view('edit')
             ->with('type', $this->resourceType)
-            ->with('instance', $instance);
+            ->with('instance', $instance)
+            ->with('isUpdate', true);
     }
 
     /**
