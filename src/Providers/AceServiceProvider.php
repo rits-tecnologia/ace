@@ -50,5 +50,9 @@ class AceServiceProvider extends ServiceProvider
         $this->publishes([
             __DIR__ . '/../../stub/config/ace.php' => config_path('ace.php'),
         ], 'ace-config');
+
+        $this->publishes([
+            __DIR__ . '/../../resources/lang' => resource_path('lang/vendor/ace'),
+        ], 'ace-trans');
     }
 }
