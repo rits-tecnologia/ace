@@ -9,6 +9,12 @@ require('./autoload/table-responsive');
 require('./autoload/form-anchors');
 
 $(document).ready(function () {
+    if (Noty) {
+        Noty.overrideDefaults({
+            layout: 'topRight',
+            theme: 'bootstrap-v3',
+        });
+    }
 
     // Add body-small class if window less than 768px
     if ($(this).width() < 768) {
