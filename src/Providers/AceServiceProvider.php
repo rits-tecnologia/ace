@@ -48,7 +48,7 @@ class AceServiceProvider extends ServiceProvider
         ], 'ace-views');
 
         $this->publishes([
-            __DIR__ . '/../../stub/config/ace.php' => config_path('ace.php'),
+            __DIR__ . '/../../config/ace.php' => config_path('ace.php'),
         ], 'ace-config');
 
         $this->publishes([
