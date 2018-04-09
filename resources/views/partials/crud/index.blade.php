@@ -32,7 +32,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($resources as $resource)
+                            @forelse ($resources as $resource)
                                 <tr>
                                     @foreach ($resource->adminColumns() as $column)
                                         <td>{{ $resource->getColumn($column) }}</td>
@@ -60,7 +60,13 @@
                                         </div>
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="{{ count($resource->adminColumns()) + 1 }}">
+                                        {{ trans('ace::terms.actions.no_records') }}
+                                    </td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>

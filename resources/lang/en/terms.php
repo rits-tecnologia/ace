@@ -3,6 +3,7 @@
 return [
     'actions' => [
         'no_actions' => 'No actions available',
+        'no_records' => 'No records found',
 
         /**
          * Model to be used when creating a new crud.
