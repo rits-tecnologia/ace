@@ -62,7 +62,7 @@
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="{{ count($resource->adminColumns()) + 1 }}">
+                                    <td colspan="{{ count($instance->adminColumns()) + 1 }}">
                                         {{ trans('ace::terms.actions.no_records') }}
                                     </td>
                                 </tr>
