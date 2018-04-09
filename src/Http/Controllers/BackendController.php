@@ -190,7 +190,7 @@ class BackendController extends Controller
      * @param Model $resource
      * @return RedirectResponse
      */
-    protected function afterCreate(Model $resource)
+    protected function afterCreate($resource)
     {
         /** @var Authorizable $user */
         $user = auth()->user();
