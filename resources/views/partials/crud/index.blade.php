@@ -16,11 +16,13 @@
 @stop
 
 @section('content')
+    @yield('before-row')
     <div class="row">
         <div class="col-lg-8">
             @component('ace::components.box')
                 @slot('title', crudAction($type, 'index'))
 
+                @yield('before-table')
                 <div class="table-responsive">
                     <table class="table table-bordered table-hover">
                         <thead>
@@ -72,6 +74,7 @@
                         </tbody>
                     </table>
                 </div>
+                @yield('after-table')
 
                 {!! $resources->links() !!}
             @endcomponent
@@ -80,4 +83,5 @@
             @yield('filters')
         </div>
     </div>
+    @yield('after-row')
 @stop
