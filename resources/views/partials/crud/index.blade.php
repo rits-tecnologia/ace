@@ -4,9 +4,11 @@
     @component('ace::components.page-header')
         @slot('title', crudAction($type, 'label'))
         @slot('aside')
-            <a href="{{ $instance->route('new') }}" class="btn btn-default">
-                {{ crudAction($type, 'new') }}
-            </a>
+            @can('create', $type)
+                <a href="{{ $instance->route('new') }}" class="btn btn-default">
+                    {{ crudAction($type, 'new') }}
+                </a>
+            @endcan
         @endslot
 
         {!! app('breadcrumbs')->render() !!}
