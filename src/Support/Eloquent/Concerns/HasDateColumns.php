@@ -33,7 +33,7 @@ trait HasDateColumns
      */
     public function getColumn($attribute)
     {
-        $method = 'get-' . $attribute . '-column';
+        $method = camel_case('get-' . $attribute . '-column');
 
         if (method_exists($this, $method)) {
             return $this->{$method}();
