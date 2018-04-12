@@ -2,7 +2,7 @@
 
 namespace Rits\Ace\Support\Eloquent\Concerns;
 
-trait HasDateColumns
+trait HasColumns
 {
     /**
      * Convert date to localized format.
@@ -10,7 +10,7 @@ trait HasDateColumns
      * @param string $attribute
      * @return string
      */
-    public function getDateColumn($attribute)
+    public function getDateAdminColumn($attribute)
     {
         $value = $this->{$attribute};
 
@@ -31,14 +31,14 @@ trait HasDateColumns
      * @param string $attribute
      * @return string
      */
-    public function getColumn($attribute)
+    public function getAdminColumn($attribute)
     {
-        $method = camel_case('get-' . $attribute . '-column');
+        $method = camel_case('get-' . $attribute . '-admin-column');
 
         if (method_exists($this, $method)) {
             return $this->{$method}();
         } elseif ($this->isDateAttribute($attribute)) {
-            return $this->getDateColumn($attribute);
+            return $this->getDateAdminColumn($attribute);
         }
 
         return $this->$attribute;
