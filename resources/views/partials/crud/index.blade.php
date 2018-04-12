@@ -39,7 +39,7 @@
                             @forelse ($resources as $resource)
                                 <tr>
                                     @foreach ($resource->adminColumns() as $column)
-                                        <td>{{ $resource->getAdminColumn($column) }}</td>
+                                        <td>{!! $resource->getAdminColumn($column) !!}</td>
                                     @endforeach
                                     <td class="text-right">
                                         <div class="dropdown">
