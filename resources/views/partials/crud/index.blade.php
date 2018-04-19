@@ -28,7 +28,7 @@
                         <thead>
                             <tr>
                                 @foreach ($instance->adminColumns() as $column)
-                                    <th class="{{ $resource->adminColumnExpand($loop->index, $column) ? 'expand' : 'shrink' }}">
+                                    <th class="{{ $instance->adminColumnExpand($loop->index, $column) ? 'expand' : 'shrink' }}">
                                         {{ crudColumn($type, $column) }}
                                     </th>
                                 @endforeach
