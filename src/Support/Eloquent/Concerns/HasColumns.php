@@ -53,6 +53,6 @@ trait HasColumns
      */
     public function getColumnExpand($index, $attribute)
     {
-        return $index === 0;
+        return $index === (count($this->adminColumns()) - 1);
     }
 }
