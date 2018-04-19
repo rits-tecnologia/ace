@@ -43,4 +43,16 @@ trait HasColumns
 
         return $this->$attribute;
     }
+
+    /**
+     * If this column should expand.
+     *
+     * @param int $index
+     * @param string $attribute
+     * @return bool
+     */
+    public function getColumnExpand($index, $attribute)
+    {
+        return $index === 0;
+    }
 }

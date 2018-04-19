@@ -28,7 +28,7 @@
                         <thead>
                             <tr>
                                 @foreach ($instance->adminColumns() as $column)
-                                    <th>
+                                    <th class="{{ $resource->adminColumnExpand($loop->index, $column) ? 'expand' : 'shrink' }}">
                                         {{ crudColumn($type, $column) }}
                                     </th>
                                 @endforeach
@@ -39,7 +39,9 @@
                             @forelse ($resources as $resource)
                                 <tr>
                                     @foreach ($resource->adminColumns() as $column)
-                                        <td>{!! $resource->getAdminColumn($column) !!}</td>
+                                        <td class="{{ $resource->adminColumnExpand($loop->index, $column) ? 'expand' : 'shrink' }}">
+                                            {!! $resource->getAdminColumn($column) !!}
+                                        </td>
                                     @endforeach
                                     <td class="text-right">
                                         <div class="dropdown">
