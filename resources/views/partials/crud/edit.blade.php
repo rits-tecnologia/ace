@@ -14,20 +14,27 @@
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col-lg-8">
-            {!! Form::model($instance, ['url' => $instance->route('update'), 'method' => 'put', 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
+    {!! Form::model($instance, ['url' => $instance->route('update'), 'method' => 'put', 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
+        <div class="row">
+            <div class="col-lg-8">
                 @component('ace::components.box')
                     @slot('title', crudAction($type, 'edit'))
-                    @slot('footer')
-                        <div class="text-right">
-                            {!! Form::submit(crudAction($type, 'save'), ['class' => 'btn btn-primary']) !!}
-                        </div>
-                    @endslot
+                    @if (! isset($hideFooter) || $hideFooter)
+                        @slot('footer')
+                            <div class="text-right">
+                                {!! Form::submit(crudAction($type, 'save'), ['class' => 'btn btn-primary']) !!}
+                            </div>
+                        @endslot
+                    @endif
 
                     @yield('form')
                 @endcomponent
-            {!! Form::close() !!}
+
+                @yield('after-form')
+            </div>
+            <div class="col-lg-4">
+                @yield('aside')
+            </div>
         </div>
-    </div>
+    {!! Form::close() !!}
 @stop
