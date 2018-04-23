@@ -14,7 +14,7 @@
             <div class="col-lg-8">
                 @component('ace::components.box')
                     @slot('title', crudAction($type, 'new'))
-                    @if (! isset($hideFooter) || $hideFooter)
+                    @if (! isset($hideFooter) || ! $hideFooter)
                         @slot('footer')
                             <div class="text-right">
                                 {!! Form::submit(crudAction($type, 'save'), ['class' => 'btn btn-primary']) !!}
