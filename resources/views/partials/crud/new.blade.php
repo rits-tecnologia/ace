@@ -9,7 +9,7 @@
 @stop
 
 @section('content')
-    {!! Form::model($instance, ['url' => $instance->route('create'), 'method' => 'post', 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
+    {!! Form::model($instance, ['url' => $instance->route('create'), 'method' => 'post', 'files' => true, 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
         @yield('form')
     {!! Form::close() !!}
 @stop

@@ -14,7 +14,7 @@
 @stop
 
 @section('content')
-    {!! Form::model($instance, ['url' => $instance->route('update'), 'method' => 'put', 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
+    {!! Form::model($instance, ['url' => $instance->route('update'), 'method' => 'put', 'files' => true, 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
         @yield('form')
     {!! Form::close() !!}
 @stop
