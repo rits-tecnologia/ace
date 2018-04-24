@@ -10,6 +10,6 @@
 
 @section('content')
     {!! Form::model($instance, ['url' => $instance->route('create'), 'method' => 'post', 'data-validation' => $instance->hasRoute('validation') ? $instance->route('validation') : '']) !!}
-        {!! Form::submit(crudAction($type, 'save'), ['class' => 'btn btn-primary']) !!}
+        @yield('form')
     {!! Form::close() !!}
 @stop
