@@ -7,6 +7,13 @@ use Illuminate\Foundation\Http\FormRequest;
 class BackendRequest extends FormRequest
 {
     /**
+     * Type of class being validated.
+     *
+     * @var string
+     */
+    protected $type = null;
+
+    /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
@@ -58,5 +65,21 @@ class BackendRequest extends FormRequest
     protected function baseRules()
     {
         return [];
+    }
+
+    /**
+     * Define nice names for attributes.
+     *
+     * @return array
+     */
+    public function attributes()
+    {
+        $niceNames = [];
+
+        foreach ($this->rules() as $attribute => $rule) {
+            $niceNames[$attribute] = trans(crudColumn($this->type, $attribute));
+        }
+
+        return $niceNames;
     }
 }
