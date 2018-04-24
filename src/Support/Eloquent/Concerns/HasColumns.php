@@ -33,6 +33,8 @@ trait HasColumns
      */
     public function getAdminColumn($attribute)
     {
+        $attribute = str_replace('.', '-', $attribute);
+
         $method = camel_case('get-' . $attribute . '-admin-column');
 
         if (method_exists($this, $method)) {
