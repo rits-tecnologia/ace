@@ -7,60 +7,12 @@ use Illuminate\Database\Query\Builder;
 trait Reorderable
 {
     /**
-     * Executes query ordering.
-     *
-     * @param Builder $query
-     * @param array $order
-     * @return Builder
-     */
-    public function scopeOrder($query, $order)
-    {
-        $orderBy = data_get($order, 'by');
-        $orderDir = data_get($order, 'dir');
-
-        if (! in_array($orderBy, $this->getOrderFields())) {
-            $orderBy = $this->getOrderKey();
-        }
-
-        if (! in_array($orderDir, ['asc', 'desc'])) {
-            $orderDir = $this->getOrderDir();
-        }
-
-        $query->orderBy($this->getTable().'.'.$orderBy, $orderDir);
-
-        return $query;
-    }
-
-    /**
-     * Get default order direction.
-     *
-     * @return string
-     */
-    public function getOrderDir()
-    {
-        return 'desc';
-    }
-
-    /**
-     * Get default order key.
-     *
-     * @return string
-     */
-    public function getOrderKey()
-    {
-        return $this->getKeyName();
-    }
-
-    /**
-     * Get available ordering fields.
+     * List of headers for the admin reordering table.
      *
      * @return array
      */
-    public function getOrderFields()
+    public function adminReorderColumns($query, $order)
     {
-        return [
-            $this->getOrderKey() =>
-                trans('validation.attributes.'.$this->getOrderKey())
-        ];
+        return $this->adminColumns();
     }
 }
