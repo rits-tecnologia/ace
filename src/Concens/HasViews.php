@@ -32,6 +32,8 @@ trait HasViews
             $this->viewFormat
         );
 
-        return view($name, $data);
+        return view()->exists($name)
+            ? view($name, $data)
+            : view('ace::partials.crud.' . $action, $data);
     }
 }

@@ -57,4 +57,16 @@ trait HasColumns
     {
         return $index === (count($this->adminColumns()) - 1);
     }
+
+    /**
+     * If this column should expand in reorder.
+     *
+     * @param int $index
+     * @param string $attribute
+     * @return bool
+     */
+    public function getReorderColumnExpand($index, $attribute)
+    {
+        return $index === (count($this->adminColumns()) - 1);
+    }
 }
