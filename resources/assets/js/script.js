@@ -7,7 +7,7 @@
 
 require('./autoload/table-responsive');
 require('./autoload/form-anchors');
-require('./autoload/sort-table');
+require('./autoload/sort-table').init();
 
 $(document).ready(function () {
     if (Noty) {
