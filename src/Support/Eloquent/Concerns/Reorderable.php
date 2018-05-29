@@ -11,8 +11,10 @@ trait Reorderable
      *
      * @return array
      */
-    public function adminReorderColumns($query, $order)
+    public function adminReorderColumns()
     {
-        return $this->adminColumns();
+        return array_filter($this->adminColumns(), function ($item) {
+            return $item !== 'order';
+        });
     }
 }
