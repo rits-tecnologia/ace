@@ -79,7 +79,9 @@ class BackendRequest extends FormRequest
         foreach ($this->rules() as $attribute => $rule) {
             $column = crudColumn($this->type, $attribute);
 
-            $niceNames[$attribute] = trans(crudColumn($this->type, $attribute));
+            if (is_string($column)) {
+                $niceNames[$attribute] = trans($column);
+            }
         }
 
         return $niceNames;
