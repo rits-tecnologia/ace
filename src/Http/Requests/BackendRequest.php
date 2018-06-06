@@ -77,6 +77,8 @@ class BackendRequest extends FormRequest
         $niceNames = [];
 
         foreach ($this->rules() as $attribute => $rule) {
+            $column = crudColumn($this->type, $attribute);
+
             $niceNames[$attribute] = trans(crudColumn($this->type, $attribute));
         }
 
