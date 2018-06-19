@@ -244,15 +244,8 @@ class BackendController extends Controller
     {
         /** @var Authorizable $user */
         $user = auth()->user();
-        $route = null;
 
-        if ($user->can('list', $resource)) {
-            $route = $resource->route('index');
-        }
-
-        $route = $route ? redirect()->to($route) : back();
-
-        return $route->with(
+        return back()->with(
             'success',
             crudAction($this->resourceType, 'success.deleted')
         );
