@@ -198,6 +198,8 @@ class BackendController extends Controller
 
         if ($user->can('view', $resource)) {
             $route = $resource->route('show');
+        } elseif ($user->can('update', $this->resourceType)) {
+            $route = $resource->route('edit');
         } elseif ($user->can('list', $this->resourceType)) {
             $route = $resource->route('index');
         }
@@ -218,17 +220,7 @@ class BackendController extends Controller
      */
     protected function afterUpdate($resource)
     {
-        /** @var Authorizable $user */
-        $user = auth()->user();
-        $route = null;
-
-        if ($user->can('view', $resource)) {
-            $route = $resource->route('show');
-        }
-
-        $route = $route ? redirect()->to($route) : back();
-
-        return $route->with(
+        return back()->with(
             'success',
             crudAction($this->resourceType, 'success.updated')
         );
@@ -242,9 +234,6 @@ class BackendController extends Controller
      */
     protected function afterDelete($resource)
     {
-        /** @var Authorizable $user */
-        $user = auth()->user();
-
         return back()->with(
             'success',
             crudAction($this->resourceType, 'success.deleted')
