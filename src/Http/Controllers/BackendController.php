@@ -198,7 +198,7 @@ class BackendController extends Controller
 
         if ($user->can('view', $resource)) {
             $route = $resource->route('show');
-        } elseif ($user->can('update', $this->resourceType)) {
+        } elseif ($user->can('update', $resource)) {
             $route = $resource->route('edit');
         } elseif ($user->can('list', $this->resourceType)) {
             $route = $resource->route('index');
