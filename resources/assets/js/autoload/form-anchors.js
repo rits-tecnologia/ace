@@ -41,11 +41,18 @@
             let $this = $(this);
 
             if (confirmation = $this.data('confirm')) {
+                var type = {
+                  'post': 'info',
+                  'patch': 'warning',
+                  'put': 'warning',
+                  'delete': 'error',
+                }[$this.data('method').toLowerCase()] || 'warning';
+
                 var n = new Noty({
-                    type: 'error',
+                    type: type,
                     text: confirmation,
                     buttons: [
-                        Noty.button('Confirmar', 'btn btn-danger', function () {
+                        Noty.button('Confirmar', 'btn btn-' + type, function () {
                             forward($this);
                         }),
                         Noty.button('Cancelar', 'btn btn-default', function () {
@@ -59,3 +66,4 @@
         });
     });
 })(window.jQuery);
+
