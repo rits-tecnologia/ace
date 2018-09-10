@@ -8,9 +8,10 @@ trait HasColumns
      * Convert date to localized format.
      *
      * @param string $attribute
+     * @param bool $export
      * @return string
      */
-    public function getDateAdminColumn($attribute)
+    public function getDateAdminColumn($attribute, $export = false)
     {
         $value = $this->{$attribute};
 
@@ -29,18 +30,19 @@ trait HasColumns
      * Value for an admin column.
      *
      * @param string $attribute
+     * @param bool $export
      * @return string
      */
-    public function getAdminColumn($attribute)
+    public function getAdminColumn($attribute, $export = false)
     {
         $attribute = str_replace('.', '-', $attribute);
 
         $method = camel_case('get-' . $attribute . '-admin-column');
 
         if (method_exists($this, $method)) {
-            return $this->{$method}();
+            return $this->{$method}($export);
         } elseif ($this->isDateAttribute($attribute)) {
-            return $this->getDateAdminColumn($attribute);
+            return $this->getDateAdminColumn($attribute, $export);
         }
 
         return $this->$attribute;
