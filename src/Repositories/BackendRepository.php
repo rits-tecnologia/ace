@@ -199,7 +199,7 @@ class BackendRepository
         return DB::transaction(function () use ($resource) {
             $resource = $this->deleteBefore($resource);
 
-            $resource->forceDelete();
+            $resource->delete();
 
             return $this->deleteAfter($resource);
         });

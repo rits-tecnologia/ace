@@ -67,6 +67,19 @@ trait Searchable
     }
 
     /**
+     * Search field in in array of values.
+     * 
+     * @param Builder $query
+     * @param string $field
+     * @param string $value
+     * @return Builder
+     */
+    public function searchIn($query, $field, $value)
+    {
+        return $query->whereIn($this->fieldName($field), $value);
+    }
+
+    /**
      * Search field is null or not.
      *
      * @param Builder $query
